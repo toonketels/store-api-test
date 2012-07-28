@@ -54,3 +54,29 @@ Store.ProductListItemView = Backbone.View.extend({
   		return this;
     }
 });
+
+
+Store.ProductList = Backbone.Collection.extend({
+	model: Store.Product
+  , url: '/api/products'
+  , initialize: function() {
+  		this.fetch({
+  			success: this.fetchSuccess
+  		  , error: this.fetchError
+  		});
+  		this.deferred = new $.Deferred();
+    }
+  , deferred: Function.constructor.prototype
+  , fetchSuccess: function (collection, response) {
+  		collection.deferred.resolve();
+    }
+  , fetchError: function (collection, response) {
+  		throw new Error("Products fetch did get collection from API");
+    }
+});
+
+Store.products = new Store.ProductList();
+
+
+
+
