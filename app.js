@@ -32,6 +32,52 @@ var Product = new Schema({
 
 var ProductModel = mongoose.model('Product', Product);
 
+
+// View a single product
+// Ex id: 5013cd10d7086e7306000001
+app.get('/api/products/:id', function(req, res){
+  return ProductModel.findById(req.params.id, function(err, product){
+    if (!err) {
+      return res.send(product);
+    } else {
+      return console.log(err);
+    }
+  });
+});
+
+
+// Update a single product
+app.put('/api/products/:id', function(req, res){
+  return ProductModel.findById(req.params.id, function(err, product){
+    product.title = req.body.title;
+    product.description = req.body.description;
+    product.style = req.body.style;
+    return product.save(function(err){
+      if (!err) {
+        console.log('Updated!');
+      } else {
+        console.log(err);
+      }
+      return res.send(product);
+    });
+  });
+});
+
+
+// Delete a single product
+app.delete('/api/products/:id', function(req, res){
+  return ProductModel.findById(req.params.id, function(err, product){
+    return product.remove(function(err){
+      if (!err) {
+        console.log('Removed!');
+      } else {
+        console.log(err);
+      }
+    });
+  });
+});
+
+
 // View all products
 app.get('/api/products', function(req, res) {
   return ProductModel.find(function(err, products) {
@@ -43,9 +89,6 @@ app.get('/api/products', function(req, res) {
   });
 });
 
-app.get('/api', function (req, res) {
-  res.send('Store API is running');
-});
 
 // Create a product
 app.post('/api/products', function(req, res) {
@@ -65,6 +108,12 @@ app.post('/api/products', function(req, res) {
     }
   });
   return res.send(product);
+});
+
+
+// Send message it runs...
+app.get('/api', function (req, res) {
+  res.send('Store API is running');
 });
 
 // Launch server
