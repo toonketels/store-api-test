@@ -27,6 +27,10 @@ var Product = new Schema({
     title: { type: String, required: true }
   , description: { type: String, required: true }
   , style: { type: String, unique: true }
+  , images: [Images]
+  , categories: [Categories]
+  , catalogs: [Catalogs]
+  , variants: [Variants]
   , modified: { type: Date, default: Date.now }
 });
 
