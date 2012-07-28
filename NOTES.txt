@@ -53,3 +53,14 @@ jQuery.ajax({
         console.dir(jqXHR); 
     }
 });
+
+
+
+TERMINOLOGY
+
+Mongo db embedded documents: Embedded Documents: Documents with schemas of their own which are part of other documents.
+
+
+
+RESOURCES
+* http://mongoosejs.com/

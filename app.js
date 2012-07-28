@@ -21,6 +21,10 @@ app.configure(function () {
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+
+/**
+ * Mongo db schema.
+ */
 var Schema = mongoose.Schema;
 
 var Product = new Schema({
@@ -32,6 +36,40 @@ var Product = new Schema({
   , catalogs: [Catalogs]
   , variants: [Variants]
   , modified: { type: Date, default: Date.now }
+});
+
+var Sizes = new Schema({
+    size: { type: String, required: true }
+  , available: { type: Number, required: true, min: 0, max: 1000 }
+  , sku: {
+      type: String
+    , required: true
+    , validate: [/[a-zA-Z0-9]/, 'Product sku should only have letters and numbers']
+  }
+  , price: { type: Number, required: true, min: 0 }
+});
+
+var Images = new Schema({
+    kind: {
+        type: String
+      , enum: ['thumbnail', 'catalog', 'detail', 'zoom']
+      , required: true
+    }
+  , url: { type: String, required: true }
+});
+
+var Variants = new Schema({
+    color: String
+  , images: [Images]
+  , sizes: [Sizes]
+});
+
+var Categories = new Schema({
+  name: String
+});
+
+var Catalogs = new Schema({
+  name: String
 });
 
 var ProductModel = mongoose.model('Product', Product);
