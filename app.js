@@ -161,10 +161,52 @@ app.post('/api/products', function(req, res) {
 });
 
 
+// Bulk update products
+app.put('/api/products', function(req, res) {
+  var i, len = 0;
+  console.log("is Array req.body.products");
+  console.log(Array.isArray(req.body.products));
+  console.log('PUT (products:');
+  console.log(req.body.products);
+  if (Array.isArray(req.body.products)) {
+    len = req.body.products.lenght;
+  }
+  for (i = 0; i < len; i++) {
+    console.log('UPDATE PRODUCT BY ID: ')
+    for (var id in req.body.products[i]) {
+      console.log(id);
+    }
+    ProductModel.update({ _id: id }, req.body.products[i][id], function(err, numAffected) {
+      if (err) {
+        console.log("Error on update");
+        console.log(err);
+      } else {
+        console.log('Updated num: ' + numAffected);
+      }
+    });
+  }
+  return res.send(req.body.products);
+});
+
+
+// Bulk delete products
+app.delete('/api/products', function(req, res) {
+  ProductModel.remove(function(err){
+    if (!err) {
+      console.log("Removed all products");
+      return res.send('');
+    } else {
+      console.log(err);
+    }
+  });  
+});
+
+
 // Send message it runs...
 app.get('/api', function (req, res) {
   res.send('Store API is running');
 });
+
 
 // Launch server
 app.listen(3000); 
