@@ -14,8 +14,9 @@ Store.Product = Backbone.Model.extend({
 Store.App = Backbone.Router.extend({
 	// Define our routes...
     routes: {
-    	'/': 'listProducts'
+    	  '/': 'listProducts'
       , 'list': 'listProducts'
+      , '/list': 'listProducts'
     }
     // Routes callback functions...
   , listProducts: function() {
@@ -88,5 +89,23 @@ Store.products = new Store.ProductList();
 
 // Bootstrap
 Store.app = new Store.App();
-Backbone.history.start();
+Backbone.history.start({pushState: true});
 
+
+// For using Backbone pushstate on links.
+// See: https://github.com/documentcloud/backbone/issues/456
+// Note: links should correspond with serverside paths for when
+// user refreshes or bookmarks page.
+window.document.addEventListener('click', function(e) {
+    e = e || window.event
+    var target = e.target || e.srcElement
+    if ( target.nodeName.toLowerCase() === 'a' ) {
+        e.preventDefault()
+        var uri = target.getAttribute('href')
+        Store.app.navigate(uri.substr(1), true)
+    }
+});
+
+window.addEventListener('popstate', function(e) {
+    Store.app.router.navigate(location.pathname.substr(1), true);
+});
