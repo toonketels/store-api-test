@@ -12,7 +12,7 @@
           "title": "Superdupe T-shirt"
         ,  "description": "All about the details. Of course it's black."
         ,  "images": [
-          {
+        {
               kind: 'detail'
             , url: 'images/animated-glowing-wifi-signal-strength-detecting-t-shirt.jpg'
           }
@@ -21,6 +21,46 @@
             , url: 'images/t_shirt_t_post_abonnement.jpg'
           }
         ]
+        , categories: [{name: 'shirt'}]
+        , catalogs: [{name: 'summer'}, {name: 'winter'}]
+       , variants: [{
+            color: 'blue'
+          , images: [{
+              kind: 'detail'
+            , url: 'images/t_shirt_t_post_abonnement.jpg'
+          }]
+          , sizes: [{
+        	  size: 'L'
+        	, available: 440 
+        	, sku: 'FHD74467GF'
+        	, price: 35 
+          }
+          , {
+          	  size: 'S'
+        	, available: 100 
+        	, sku: 'FHD74467SMGF'
+        	, price: 30 
+          }]
+        }
+        , {
+            color: 'red'
+          , images: [{
+              kind: 'detail'
+            , url: 'images/t_shirt_t_post_abonnement.jpg'
+          }]
+          , sizes: [{
+        	  size: 'M'
+        	, available: 210 
+        	, sku: 'FHD744DE67GF'
+        	, price: 39 
+          }
+          , {
+          	  size: 'XXS'
+        	, available: 40 
+        	, sku: 'FHD744DED7SMGF'
+        	, price: 33 
+          }]
+        }]
         ,  "style": "7576534D2"
       };
     }
@@ -52,16 +92,54 @@
       var product = {
           "title": "My Awesome T-shirt in Black"
         , "description": "All about the details. Of course it's black, and long sleeve"
-        ,  "images": [
-        {
+        ,  "images": [{
             kind: 'detail'
           , url: 'images/animated-glowing-wifi-signal-strength-detecting-t-shirt.jpg'
         }
         , {
         	kind: 'detail'
           , url: 'images/t_shirt_t_post_abonnement.jpg'
+        }]
+        , categories: [{name: 'shirt'}]
+        , catalogs: [{name: 'summer'}, {name: 'winter'}]
+        , variants: [{
+            color: 'blue'
+          , images: [{
+              kind: 'detail'
+            , url: 'images/t_shirt_t_post_abonnement.jpg'
+          }]
+          , sizes: [{
+        	  size: 'L'
+        	, available: 440 
+        	, sku: 'FHD74467GF'
+        	, price: 35 
+          }
+          , {
+          	  size: 'S'
+        	, available: 100 
+        	, sku: 'FHD74467SMGF'
+        	, price: 30 
+          }]
         }
-      ]
+        , {
+            color: 'red'
+          , images: [{
+              kind: 'detail'
+            , url: 'images/t_shirt_t_post_abonnement.jpg'
+          }]
+          , sizes: [{
+        	  size: 'M'
+        	, available: 210 
+        	, sku: 'FHD744DE67GF'
+        	, price: 39 
+          }
+          , {
+          	  size: 'XXS'
+        	, available: 40 
+        	, sku: 'FHD744DED7SMGF'
+        	, price: 33 
+          }]
+        }]
         , "style": "75764"
       };
     }

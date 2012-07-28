@@ -32,9 +32,9 @@ var Product = new Schema({
   , description: { type: String, required: true }
   , style: { type: String, unique: true }
   , images: [Images]
-  //, categories: [Categories]
-  //, catalogs: [Catalogs]
-  //, variants: [Variants]
+  , categories: [Categories]
+  , catalogs: [Catalogs]
+  , variants: [Variants]
   , modified: { type: Date, default: Date.now }
 });
 
@@ -50,13 +50,11 @@ var Sizes = new Schema({
 });
 
 var Images = new Schema({
-    /*
     kind: {
         type: String
       , enum: ['thumbnail', 'catalog', 'detail', 'zoom']
       , required: true
-    }*/
-    kind: String
+    }
   , url: { type: String, required: true }
 });
 
@@ -97,6 +95,9 @@ app.put('/api/products/:id', function(req, res){
     product.description = req.body.description;
     product.style = req.body.style;
     product.images = req.body.images;
+    product.categories = req.body.categories;
+    product.catalogs = req.body.catalogs;
+    product.variants = req.body.variants;
     return product.save(function(err){
       if (!err) {
         console.log('Updated!');
@@ -145,6 +146,9 @@ app.post('/api/products', function(req, res) {
     , description: req.body.description
     , style: req.body.style
     , images: req.body.images
+    , categories: req.body.categories
+    , catalogs: req.body.catalogs
+    , variants: req.body.variants
   });
   product.save(function(err) {
     if (!err) {
