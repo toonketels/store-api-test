@@ -40,3 +40,17 @@ Store.ProductListView = Backbone.View.extend({
   		item.render().$el.appendTo(this.$el);
     }
 });
+
+
+Store.ProductListItemView = Backbone.View.extend({
+	tagName: 'li'
+  , className: 'product'
+  , initialize: function ( options ) {
+  		this.template = $('#product-template').html();
+  	}
+  , render: function() {
+  		var markup = Mustache.to_html(this.template, this.model.toJSON());
+  		this.$el.html(markup).attr('id', this.model.get('_id'));
+  		return this;
+    }
+});

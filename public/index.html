@@ -16,6 +16,15 @@
   <script src="javascripts/underscore.js"></script>
   <script src="javascripts/backbone.js"></script>
   <script src="javascripts/script.js"></script>
+  <script src="javascripts/mustache.js"></script>
   <script src="javascripts/app.js"></script>
+
+  <!-- Mustache template -->
+  <script type="text/template" id="product-template">
+    <p><a href="products/{{_id}}">{{title}}</a></p>
+    <p>{{description}}</p>
+    <p>ID: {{_id}}</p>
+  </script>
+
 </body>
 </html> 
