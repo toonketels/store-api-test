@@ -57,9 +57,10 @@ Store.ProductListItemView = Backbone.View.extend({
 
 
 Store.ProductList = Backbone.Collection.extend({
-	model: Store.Product
-  , url: '/api/products'
+	//model: Store.Product
+    url: '/api/products'
   , initialize: function() {
+  		this.model = Store.Product;
   		this.fetch({
   			success: this.fetchSuccess
   		  , error: this.fetchError
@@ -84,4 +85,9 @@ Store.Product = Backbone.Model.extend({
 	  , description: null
 	}
 });
+
+
+// Bootstrap
+Store.app = new Store.App();
+Backbone.history.start();
 
