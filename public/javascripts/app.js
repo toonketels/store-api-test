@@ -35,7 +35,7 @@ Store.ProductListView = Backbone.View.extend({
     }
   , renderItem: function( model ) {
   		var item = new Store.ProductListItemView({
-  			"model": model
+  			model: model
   		});
   		item.render().$el.appendTo(this.$el);
     }
@@ -78,5 +78,10 @@ Store.ProductList = Backbone.Collection.extend({
 Store.products = new Store.ProductList();
 
 
-
+Store.Product = Backbone.Model.extend({
+	defaults: {
+		title: null
+	  , description: null
+	}
+});
 
