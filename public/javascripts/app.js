@@ -2,6 +2,15 @@
 // we don't pollute global scope.
 Store = window.Store || {};
 
+
+Store.Product = Backbone.Model.extend({
+	defaults: {
+		title: null
+	  , description: null
+	}
+});
+
+
 Store.App = Backbone.Router.extend({
 	// Define our routes...
     routes: {
@@ -11,7 +20,7 @@ Store.App = Backbone.Router.extend({
     // Routes callback functions...
   , listProducts: function() {
   	  var productsList = new Store.ProductListView({
-  	  	  'container': $.('#container')
+  	  	  'container': $('#container')
   	  	, 'collection': Store.products
   	  });
   	  // Render will be called when data is fetched
@@ -57,10 +66,9 @@ Store.ProductListItemView = Backbone.View.extend({
 
 
 Store.ProductList = Backbone.Collection.extend({
-	//model: Store.Product
-    url: '/api/products'
+	model: Store.Product
+  , url: '/api/products'
   , initialize: function() {
-  		this.model = Store.Product;
   		this.fetch({
   			success: this.fetchSuccess
   		  , error: this.fetchError
@@ -77,15 +85,6 @@ Store.ProductList = Backbone.Collection.extend({
 });
 
 Store.products = new Store.ProductList();
-
-
-Store.Product = Backbone.Model.extend({
-	defaults: {
-		title: null
-	  , description: null
-	}
-});
-
 
 // Bootstrap
 Store.app = new Store.App();
