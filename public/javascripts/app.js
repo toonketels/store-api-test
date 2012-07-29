@@ -82,7 +82,6 @@ Store.ProductDetailView = Backbone.View.extend({
   , className: 'product'
   , initialize: function ( options ) {
         this.template = $('#product-detail-template').html();
-        console.log('The options passed to view: ' + options);
     }
   , render: function() {
         // Set the title
@@ -91,7 +90,7 @@ Store.ProductDetailView = Backbone.View.extend({
         // Insert model into template...
         var markup = Mustache.to_html(this.template, this.model.toJSON());
         this.$el.html(markup).attr('id', this.model.get('_id'));
-        
+
         // Render it
         $(this.options.container).html(markup);
         return this;
