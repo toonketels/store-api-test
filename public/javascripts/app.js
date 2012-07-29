@@ -4,31 +4,42 @@ Store = window.Store || {};
 
 
 Store.Product = Backbone.Model.extend({
-	defaults: {
-		title: null
-	  , description: null
-	}
+    idAttribute: "_id"
+	, defaults: {
+		    title: null
+	    , description: null
+	  }
 });
 
 
 Store.App = Backbone.Router.extend({
 	// Define our routes...
     routes: {
-    	  '/': 'listProducts'
+        '': 'listProducts'
+    	, '/': 'listProducts'
       , 'list': 'listProducts'
-      , '/list': 'listProducts'
+      , 'products/:id': 'showProduct'
     }
     // Routes callback functions...
   , listProducts: function() {
-  	  var productsList = new Store.ProductListView({
-  	  	  'container': $('#container')
-  	  	, 'collection': Store.products
-  	  });
-  	  // Render will be called when data is fetched
-  	  Store.products.deferred.done(function(){
-  	  	  productsList.render();
-  	  });
+    	  var productsList = new Store.ProductListView({
+    	  	  'container': $('#main')
+    	  	, 'collection': Store.products
+    	  });
+    	  // Render will be called when data is fetched
+    	  Store.products.deferred.done(function(){
+    	  	  productsList.render();
+    	  });
     }
+  , showProduct: function (id) {
+        var product = Store.products.get(id);
+        var productDetail = new Store.ProductDetailView({
+            container: $('#main')
+          , model: product
+        });
+        productDetail.render();
+
+  }
 });
 
 
@@ -36,16 +47,16 @@ Store.ProductListView = Backbone.View.extend({
     tagName: 'ul'
   , className: 'products'
   , render: function() {
-  		for (var i = 0; i < this.collection.length; i++) {
-			this.renderItem(this.collection.models[i]);  			
-  		}
-  		$(this.container).find(this.className).remove();
-  		this.$el.appendTo(this.options.container);
-  		return this;
+    		for (var i = 0; i < this.collection.length; i++) {
+  			    this.renderItem(this.collection.models[i]);  			
+    		}
+        $('#title').text('Product listing');
+        $(this.options.container).html(this.$el);
+    		return this;
     }
   , renderItem: function( model ) {
   		var item = new Store.ProductListItemView({
-  			model: model
+  		  	model: model
   		});
   		item.render().$el.appendTo(this.$el);
     }
@@ -53,7 +64,7 @@ Store.ProductListView = Backbone.View.extend({
 
 
 Store.ProductListItemView = Backbone.View.extend({
-	tagName: 'li'
+	  tagName: 'li'
   , className: 'product'
   , initialize: function ( options ) {
   		this.template = $('#product-template').html();
@@ -62,6 +73,28 @@ Store.ProductListItemView = Backbone.View.extend({
   		var markup = Mustache.to_html(this.template, this.model.toJSON());
   		this.$el.html(markup).attr('id', this.model.get('_id'));
   		return this;
+    }
+});
+
+
+Store.ProductDetailView = Backbone.View.extend({
+    tagName: 'div'
+  , className: 'product'
+  , initialize: function ( options ) {
+        this.template = $('#product-detail-template').html();
+        console.log('The options passed to view: ' + options);
+    }
+  , render: function() {
+        // Set the title
+        $('#title').text(this.model.get('title'));
+
+        // Insert model into template...
+        var markup = Mustache.to_html(this.template, this.model.toJSON());
+        this.$el.html(markup).attr('id', this.model.get('_id'));
+        
+        // Render it
+        $(this.options.container).html(markup);
+        return this;
     }
 });
 
@@ -109,3 +142,6 @@ window.document.addEventListener('click', function(e) {
 window.addEventListener('popstate', function(e) {
     Store.app.router.navigate(location.pathname.substr(1), true);
 });
+
+
+// Store.products.where({'_id': '5013caf67a71c93706000006'});

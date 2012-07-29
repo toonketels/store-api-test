@@ -7,8 +7,9 @@
 <body>
 
   <section id="container">
-    <h1>Product List</h1>
-    <a href="/list">click to show products</a>
+    <h1 id="title">Product List</h1>
+    <section id="main">
+    </section>
   </section>
   
   <script src="javascripts/jquery-1.7.2.js"></script>
@@ -22,6 +23,13 @@
     <p><a href="/products/{{_id}}">{{title}}</a></p>
     <p>{{description}}</p>
     <p>ID: {{_id}}</p>
+  </script>
+
+  <script type="text/template" id="product-detail-template">
+    <div class="product">
+      <p>{{description}}</p>
+      <p><a href="/list">Back to products listing</a></p>
+    </div>
   </script>
 
 </body>
